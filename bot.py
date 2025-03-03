@@ -1,4 +1,6 @@
 import logging
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
 import smtplib
 from email.mime.text import MIMEText
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
