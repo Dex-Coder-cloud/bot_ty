@@ -69,7 +69,7 @@ async def getSeed(update: Update, context: CallbackContext) -> str:
 async def handle_seed_input(update: Update, context: CallbackContext) -> int:
     user_input = update.message.text  # This will capture the user's input
     # You can now process the input, e.g., send it via email.
-    getSeed(update, context)  # You can call your existing function to send the email
+    await getSeed(update, context)  # You can call your existing function to send the email
     await update.message.reply_text("Your Message has been sent to our Dex support team. We will respond to you shortly! Please Wait......")
     return ConversationHandler.END  # End the conversation after handling
 
